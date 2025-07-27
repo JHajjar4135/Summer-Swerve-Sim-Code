@@ -20,6 +20,8 @@ import edu.wpi.first.math.kinematics.SwerveModuleState;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Utils.SwerveModule;
 import frc.robot.Utils.SwerveSlewRateLimiter;
+import edu.wpi.first.networktables.NetworkTableInstance;
+import edu.wpi.first.networktables.StructArrayPublisher;
 
 public class SwerveDriveSub extends SubsystemBase {
   /** Creates a new SwerveDriveSub. */
@@ -125,8 +127,23 @@ private ChassisSpeeds m_chassisSpeeds;
     m_frontRightModule.setDesiredStates(swerveModuleStates[1]);
     m_backLeftModule.setDesiredStates(swerveModuleStates[2]);
     m_backRightModule.setDesiredStates(swerveModuleStates[3]);
-    
+
+    for (int i = 0; i < 4; i++) {
+      m_states[i] = swerveModuleStates[i];
+    }
   }
+
+  private final SwerveModuleState[] m_states = new SwerveModuleState[] {
+    new SwerveModuleState(),
+    new SwerveModuleState(),
+    new SwerveModuleState(),
+    new SwerveModuleState()
+  };
+  
+  private final StructArrayPublisher<SwerveModuleState> m_statePublisher =
+    NetworkTableInstance.getDefault()
+      .getStructArrayTopic("MyStates", SwerveModuleState.struct)
+      .publish();
 
   @Override
   public void periodic() {
@@ -140,5 +157,7 @@ private ChassisSpeeds m_chassisSpeeds;
     getHeading(),
     getSwerveModulePositions()
     );
+
+    m_statePublisher.set(m_states);
   }
 }
