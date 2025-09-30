@@ -28,10 +28,10 @@ public class Constants {
     public static final int k_backRightEncoder = 21;
 
     // encoder magnet offset
-    public static final double k_frontLeftMagnetOffset = 0.475341796875;
-    public static final double k_frontRightMagnetOffset = 0.2666015625;
-    public static final double k_backLeftMagnetOffset = 0.005615234375;
-    public static final double k_backRightMagnetOffset = -0.14404296875;
+    public static final double k_frontLeftMagnetOffset = 0.236572265625;
+    public static final double k_frontRightMagnetOffset = -0.23291015625;
+    public static final double k_backLeftMagnetOffset = 0.495849609375;
+    public static final double k_backRightMagnetOffset = 0.355712890625;
 
     // swerv drive geometrical and mechanical constants
     public static final double k_wheelDiam = Units.inchesToMeters(4);
